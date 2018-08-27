@@ -1,0 +1,8 @@
+---
+# NTP config for Puppet server
+ntp::package_ensure: 'present'
+ntp::driftfile: '/var/lib/ntp/ntp.drift'
+ntp::servers:
+    - '129.250.35.251'
+ntp::service_ensure: 'running'
+ntp::service_enable: true

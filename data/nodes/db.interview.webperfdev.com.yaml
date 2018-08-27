@@ -1,0 +1,57 @@
+---
+#config for db server
+#install and configure ntp
+
+ntp::package_ensure: 'present'
+ntp::driftfile: '/var/lib/ntp/ntp.drift'
+ntp::servers:
+    - '129.250.35.251'
+ntp::service_ensure: 'running'
+ntp::service_enable: true
+
+#install and configure mysql 
+mysql::server::package_name: "mysql-server" 
+mysql::server::package_ensure: 'installed'
+mysql::server::root_password: "change23"
+mysql::server::manage_config_file: true
+mysql::server::service_name: 'mysqld' # required for puppet module
+mysql::server::override_options:
+  'mysqld':
+    'bind-address': '127.0.0.1'
+    'log-error': '/var/log/mysqld.log' # required for proper MySQL installation
+  'mysqld_safe':
+    'log-error': '/var/log/mysqld.log'
+
+#Puppet module for mysql works only if I specify IP in host, doesn't work if I specify both the hosts together in an array. 
+#Workaround, adding it separately
+mysql::server::db:
+  'wiki':
+    user: 'interview'
+    password: 'interview'
+    host: '172.71.8.158' 
+    grant: 
+        - 'SELECT'
+        - 'UPDATE'
+        - 'INSERT'
+        - 'DELETE'
+  'wiki':
+    user: 'interview'
+    password: 'interview'
+    host: '172.71.8.199'
+    grant: 
+        - 'SELECT'
+        - 'UPDATE'
+        - 'INSERT'
+        - 'DELETE'
+  'wiki':
+    user: 'install_wiki'
+    password: 'install_wiki'
+    host: '172.71.8.158'
+    grant: 
+        - 'ALL'
+  'wiki':
+    user: 'install_wiki'
+    password: 'install_wiki'
+    host: '172.71.8.199'
+    grant: 
+        - 'ALL'

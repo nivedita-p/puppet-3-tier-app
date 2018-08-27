@@ -1,0 +1,14 @@
+# ntp.conf
+# Managed by Puppet
+
+# Driftfile.
+driftfile <%= $ntp::driftfile %>
+
+# NTP servers to be used
+<% $ntp::servers.each |$server| {-%>
+server <%= $server %>
+<% } -%>
+
+# By default, exchange time with everybody, but don't allow configuration.
+restrict -4 default kod notrap nomodify nopeer noquery limited
+restrict -6 default kod notrap nomodify nopeer noquery limited
