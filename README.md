@@ -1,6 +1,6 @@
-#Phase-1: Creating NTP Puppet module
+# Phase-1: Creating NTP Puppet module
 
-#SETUP
+# SETUP
 Create a directory inside modules called ntp
 
 modules
@@ -35,7 +35,7 @@ To apply configuration, run puppet agent -t on all nodes.
 Ideally, there should have been spec tests for this module, I couldnt add it due to lack of time.
 
 
-#Phase2- Mediawiki
+# Phase2- Mediawiki
 
 Install puppet module for mysql and apache, run puppet module install puppetlabs-apache --version 3.2.0
 puppet module install puppetlabs-mysql. There is a profile to manage mysql, in modules/profile.
