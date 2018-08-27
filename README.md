@@ -3,7 +3,7 @@
 # SETUP
 Create a directory inside modules called ntp
 
-modules
+```modules
  |-ntp
     |-manifests
        |-init.pp
@@ -12,20 +12,20 @@ modules
        |-service.pp
     |-templates
       |-ntp.conf.epp
-
+```
 In init.pp create a class called ntp. This class will be the main class. In this class declare all the variables that you would want to configure. Also, include other classes like "contain config.pp". In this class we also specify the order of execution of classes aka dependance. I have configured only minimum configuration required to run NTP, list of servers being the most important one.
 
 In config.pp, specify resources that are required by ntp to run, for e.g. presence of ntp.conf and contents which are rendered by template ntp.conf.epp. In install.pp, manage state of NTP package, whether you want it to be installed or not. In service.pp, manage state of ntpd service.
 
 To manage different configuration on different nodes, create .yaml for all the 4 nodes inside nodes dir as per the heirarchy specified in hiera.yaml.
-
+```
  |-data
    |-nodes
      |-db.interview.webperfdev.com.yaml
      |-puppet.interview.webperfdev.com.yaml
      |-web1.interview.webperfdev.com.yaml
      |-web2.interview.webperfdev.com.yaml
-
+```
 Add ntp specific config to each of these.
 
 Inside manifests/nodes.pp, include ntp in each of the nodes
